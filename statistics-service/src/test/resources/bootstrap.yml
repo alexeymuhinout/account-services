@@ -10,3 +10,4 @@ spring:
       enabled: false
       config:
         enabled: false
+        fail-fast: false

@@ -2,7 +2,7 @@
   "version": "1.0",
   "repos" : [
     {
-      "name" : "life-needs-tracker",
+      "name" : "personal-account-services",
       "expand_keys": true,
       "url" : "https://github.com/alexeymuhinout/config-repo",
       "branches" : [
