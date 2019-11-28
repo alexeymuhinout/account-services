@@ -1,0 +1,6 @@
+# Project exclude paths
+/account-service/target/
+/gateway-service/target/
+/notification-service/target/
+/shows-service/target/
+/statistics-service/target/

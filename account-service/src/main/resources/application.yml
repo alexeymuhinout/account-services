@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    consul:
+      host: ${DISCOVERY_SERVICE_URL}
+      port: ${DISCOVERY_PORT}
+      discovery:
+        prefer-ip-address: true
+
+server:
+  port: ${PORT:8080}

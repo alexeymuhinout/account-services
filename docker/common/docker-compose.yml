@@ -1,0 +1,105 @@
+version: '3.3'
+services:
+  discovery-service:
+    container_name: discovery-service
+    image: bitnami/consul:latest
+    ports:
+      - '9300:8300'
+      - '9500:8500'
+      - '9600:8600'
+
+  git2consul:
+    command: --endpoint discovery-service --port 8500 --config-file /etc/git2consul.d/config.json -user github-rustedbrain-login -password github-rustedbrain-password -once
+    image: cimpress/git2consul
+    restart: always
+    links:
+      - discovery-service
+    volumes:
+      - ./git2consul:/etc/git2consul.d
+
+  gateway-service:
+    container_name: gateway-service
+    build:
+      context: ./../../gateway-service/target/docker
+      dockerfile: Dockerfile
+    image: rustedbrain/gateway-service:0.1
+    ports:
+      - "9090:8080"
+    environment:
+      DISCOVERY_SERVICE_URL: "discovery-service"
+      DISCOVERY_PORT: "8500"
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "9080:8080"
+
+  shows-service:
+    container_name: shows-service
+    build:
+      context: ./../../shows-service/target/docker/
+      dockerfile: Dockerfile
+    image: rustedbrain/shows-service:0.1
+    ports:
+      - "9091:8080"
+    environment:
+      DISCOVERY_SERVICE_URL: "discovery-service"
+      DISCOVERY_PORT: "8500"
+      SPRING_CONFIG_URI: "configuration-service"
+      SPRING_CONFIG_PORT: "8888"
+
+  account-service:
+    container_name: account-service
+    build:
+      context: ./../../account-service/target/docker/
+      dockerfile: Dockerfile
+    image: rustedbrain/account-service:0.1
+    ports:
+      - "9092:8080"
+    environment:
+      DISCOVERY_SERVICE_URL: "discovery-service"
+      DISCOVERY_PORT: "8500"
+      SPRING_CONFIG_URI: "configuration-service"
+      SPRING_CONFIG_PORT: "8888"
+
+  statistics-service:
+    container_name: statistics-service
+    build:
+      context: ./../../statistics-service/target/docker/
+      dockerfile: Dockerfile
+    image: rustedbrain/statistics-service:0.1
+    ports:
+      - "9093:8080"
+    environment:
+      DISCOVERY_SERVICE_URL: "discovery-service"
+      DISCOVERY_PORT: "8500"
+      SPRING_CONFIG_URI: "configuration-service"
+      SPRING_CONFIG_PORT: "8888"
+
+
+  notification-service:
+    container_name: notification-service
+    build:
+      context: ./../../notification-service/target/docker/
+      dockerfile: Dockerfile
+    image: rustedbrain/notification-service:0.1
+    ports:
+      - "9094:8080"
+    environment:
+      DISCOVERY_SERVICE_URL: "discovery-service"
+      DISCOVERY_PORT: "8500"
+      SPRING_CONFIG_URI: "configuration-service"
+      SPRING_CONFIG_PORT: "8888"
+
+secrets:                        # top level secrets block
+  github-rustedbrain-login:
+    external: true
+  github-rustedbrain-password:
+    external: true
