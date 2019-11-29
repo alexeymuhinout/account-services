@@ -1,6 +1,8 @@
 spring:
   application:
     name: account-service
+  profiles:
+    active: ${SPRING_PROFILE:development}
   cloud:
     consul:
       host: ${DISCOVERY_SERVICE_URL}

@@ -29,6 +29,14 @@ services:
       DISCOVERY_SERVICE_URL: "discovery-service"
       DISCOVERY_PORT: "8500"
 
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
   db:
     image: mariadb
     restart: always
@@ -50,10 +58,12 @@ services:
     ports:
       - "9091:8080"
     environment:
+      SPRING_PROFILE: "production"
       DISCOVERY_SERVICE_URL: "discovery-service"
       DISCOVERY_PORT: "8500"
-      SPRING_CONFIG_URI: "configuration-service"
-      SPRING_CONFIG_PORT: "8888"
+      MONGO_DB_URL: "mongodb"
+    depends_on:
+      - mongodb
 
   account-service:
     container_name: account-service
@@ -66,8 +76,8 @@ services:
     environment:
       DISCOVERY_SERVICE_URL: "discovery-service"
       DISCOVERY_PORT: "8500"
-      SPRING_CONFIG_URI: "configuration-service"
-      SPRING_CONFIG_PORT: "8888"
+    depends_on:
+      - db
 
   statistics-service:
     container_name: statistics-service
@@ -80,9 +90,6 @@ services:
     environment:
       DISCOVERY_SERVICE_URL: "discovery-service"
       DISCOVERY_PORT: "8500"
-      SPRING_CONFIG_URI: "configuration-service"
-      SPRING_CONFIG_PORT: "8888"
-
 
   notification-service:
     container_name: notification-service
@@ -95,8 +102,6 @@ services:
     environment:
       DISCOVERY_SERVICE_URL: "discovery-service"
       DISCOVERY_PORT: "8500"
-      SPRING_CONFIG_URI: "configuration-service"
-      SPRING_CONFIG_PORT: "8888"
 
 secrets:                        # top level secrets block
   github-rustedbrain-login:

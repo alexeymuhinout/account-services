@@ -6,7 +6,8 @@
       "expand_keys": true,
       "url" : "https://github.com/alexeymuhinout/config-repo",
       "branches" : [
-        "development"
+        "development",
+        "production"
       ],
       "hooks": [
         {
