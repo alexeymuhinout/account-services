@@ -11,5 +11,7 @@ spring:
         prefer-ip-address: true
       config:
         enabled: true
-        default-context: personal-account-service
-        format: FILES
+        format: YAML
+        prefix: account-services-configuration
+        default-context: ${spring.application.name}
+        data-key: shows-service.yml

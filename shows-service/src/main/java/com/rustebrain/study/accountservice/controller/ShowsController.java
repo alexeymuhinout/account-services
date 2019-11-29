@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class ShowsController {
 
-    @Value("${show-service.yml.spring.data.mongodb.database}")
+    @Value("${spring.data.mongodb.database}")
     private String prop;
 
     @GetMapping("/hello")

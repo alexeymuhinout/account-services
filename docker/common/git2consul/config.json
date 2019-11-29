@@ -2,9 +2,9 @@
   "version": "1.0",
   "repos" : [
     {
-      "name" : "personal-account-services",
+      "name" : "account-services-configuration",
       "expand_keys": true,
-      "url" : "https://github.com/alexeymuhinout/config-repo",
+      "url" : "https://github.com/alexeymuhinout/account-services-configuration-repository",
       "branches" : [
         "development",
         "production"
