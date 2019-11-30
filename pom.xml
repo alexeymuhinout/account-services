@@ -14,6 +14,7 @@
         <module>account-service</module>
         <module>statistics-service</module>
         <module>shows-service</module>
+        <module>shows-ui</module>
         <module>notification-service</module>
     </modules>
 
