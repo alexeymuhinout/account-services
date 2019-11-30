@@ -17,19 +17,6 @@
     <docker.image.tag>${project.version}</docker.image.tag>
   </properties>
 
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <build>
     <plugins>
       <plugin>
@@ -40,6 +27,7 @@
           <nodeVersion>v12.13.1</nodeVersion>
           <npmVersion>6.12.1</npmVersion>
           <workingDirectory>${basedir}</workingDirectory>
+          <installDirectory>${basedir}</installDirectory>
         </configuration>
         <executions>
           <execution>
