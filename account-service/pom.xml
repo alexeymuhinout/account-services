@@ -19,7 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.RC2</spring-cloud.version>
-        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.12</spring-boot.version>
         <start-class>com.rustebrain.study.accountservice.AccountServiceApplication</start-class>
         <docker.image.name>rustedbrain/${project.artifactId}</docker.image.name>
         <docker.image.tag>${project.version}</docker.image.tag>
